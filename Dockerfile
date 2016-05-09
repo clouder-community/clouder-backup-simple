@@ -1,7 +1,7 @@
 FROM clouder/clouder-base
 MAINTAINER Yannick Buron yburon@goclouder.net
 
-RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get -y -q install python2.7-dev python-fuse python-pyxattr python-pylibacl python-tornado linux-libc-dev acl attr par2 git make cron ncftp
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get -y -q install python2.7-dev python-fuse python-pyxattr python-pylibacl python-tornado linux-libc-dev acl attr par2 git make cron ncftp supervisor
 
 
 RUN mkdir  /home/backup
@@ -24,3 +24,5 @@ USER root
 RUN echo "" >> /etc/supervisor/conf.d/supervisord.conf
 RUN echo "[program:cron]" >> /etc/supervisor/conf.d/supervisord.conf
 RUN echo "command=cron -f" >> /etc/supervisor/conf.d/supervisord.conf
+
+CMD ["/usr/bin/supervisord"]
